@@ -1,0 +1,15 @@
+.rating_badge {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 100%;
+}
+.rating_badge_placement {
+    position: relative;
+    top: 10px;
+    right: 10px;
+}

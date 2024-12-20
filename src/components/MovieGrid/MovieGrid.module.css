@@ -1,0 +1,19 @@
+
+
+.movie_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 33px;
+    column-gap: 36px;
+    justify-items: center;
+}
+
+@media screen and (max-width: 769px) {
+    .movie_grid {
+    display: grid;
+    row-gap: 33px;
+    column-gap: 36px;
+    justify-items: center;
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,30 @@
+.img {
+    max-width: 180px;
+    min-width: 140px;
+    height: 280px;
+
+}
+.movie_container {
+    max-width: 450px;
+    height: 280px;
+    gap: 25px;
+    background-color: black;
+    color: white;
+    margin: 36px;
+    display: flex;
+    flex-direction: row;
+}
+.tag {
+    background-color: rgb(24, 144, 255);
+    color: white;
+    border-radius: 2px;
+}
+
+.filmConteiner {
+    color: white;
+    width: 387px;
+    height: 245px;
+    display: flex;
+    background-color: rgba(26, 26, 25, 0.7);
+    gap: 10px;
+  }

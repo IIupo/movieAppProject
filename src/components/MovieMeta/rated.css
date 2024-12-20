@@ -1,0 +1,8 @@
+.stars .ant-rate-star:not(.ant-rate-star-full) .ant-rate-star-first,
+.ant-rate-star:not(.ant-rate-star-full) .ant-rate-star-second {
+  color: #ccc;
+
+}
+:where(.css-dev-only-do-not-override-1kf000u).ant-rate {
+  font-size: 10px;
+}

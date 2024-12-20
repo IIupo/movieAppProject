@@ -1,0 +1,6 @@
+.app{
+display: flex;
+background-color: rgb(51, 51, 60);
+flex-direction: column;
+align-items: center;
+}
