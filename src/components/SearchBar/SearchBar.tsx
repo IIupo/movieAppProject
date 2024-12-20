@@ -9,7 +9,7 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [debouncedCallback] = useDebounce(
     handleSearch,
-    5000
+    500
   );
 
   function handleSearch(value: string) {
