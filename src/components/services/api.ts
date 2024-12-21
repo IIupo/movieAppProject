@@ -5,7 +5,6 @@ const API_OPTIONS = {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMTdiYzNjOWQ3ZjI4YmEyYzE3YWNlNDY3YTZiMmJjOSIsIm5iZiI6MTczMzc1NzE0Ny41MTgwMDAxLCJzdWIiOiI2NzU3MDhkYmExOGNiODY5NWFmZDkwYmYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.eK7C7F2k399BshOp0b3eLgp4AgjX1ZSStSbhslWYyDI'
   }
 };
-
 export const createGuestSession = async () => {
   const response = await fetch(
     `${BASE_URL}/authentication/guest_session/new`,

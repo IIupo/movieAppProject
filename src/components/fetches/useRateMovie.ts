@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { rateMovie } from '../services/api';
 import { useSession } from '../context/SessionContext';
 
- const useRateMovie = () => {
+const useRateMovie = () => {
   const { session } = useSession();
 
   const handleRate = useCallback(async (movieId: number, rating: number) => {

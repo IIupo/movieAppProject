@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Genre } from '../types/movie';
 import { fetchGenres } from '../services/api';
 
@@ -14,7 +14,11 @@ const GenreContext = createContext<GenreContextType>({
 
 const useGenres = () => useContext(GenreContext);
 
-const GenreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface GenreProviderProps {
+  children: ReactNode;
+}
+
+const GenreProvider: React.FC<GenreProviderProps> = ({ children }) => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 

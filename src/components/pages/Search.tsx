@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { Alert, Spin, Pagination } from 'antd';
 import { SearchBar } from '../SearchBar/SearchBar';
-import { MovieGrid } from '../MovieGrid/MovieGrid';
+import { MovieGrid }from '../MovieGrid/MovieGrid';
 import { useMovieSearch } from '../fetches/useMovieSearch';
 import { useSession } from '../context/SessionContext';
 import { useRateMovie } from '../fetches/useRateMovie';
 import { IsOnline } from '../isOnline';
 
 const Search: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const { session } = useSession();
   const { handleRate } = useRateMovie();
   const {
@@ -17,16 +16,23 @@ const Search: React.FC = () => {
     totalResults,
     currentPage,
     handleSearch,
+    setSearchQuery,
   } = useMovieSearch();
 
-  const onSearch = (query: string) => {
+  const onSearch = useCallback((query: string) => {
     setSearchQuery(query);
-    handleSearch(query);
-  };
+  }, [setSearchQuery]);
 
-  const handlePageChange = (page: number) => {
-    handleSearch(searchQuery, page);
-  };
+  const handlePageChange = useCallback((page: number) => {
+    handleSearch(undefined, page);
+  }, [handleSearch]);
+
+  const onRateMovie = useCallback(async (movieId: number, rating: number) => {
+    if (session) {
+      await handleRate(movieId, rating);
+      handleSearch();
+    }
+  }, [session, handleRate, handleSearch]);
 
   return (
     <>
@@ -38,27 +44,28 @@ const Search: React.FC = () => {
         <>
           <MovieGrid
             movies={movies}
-            onRate={session ? handleRate : () => {}}
+            onRate={onRateMovie}
           />
-          {!(movies.length === 0) ? 
-            (<Pagination
-            align="center"
-            current={currentPage}
-            total={totalResults}
-            onChange={handlePageChange}
-            pageSize={20}
-            showSizeChanger={false}
-          />) : null}
-          {(!loading && movies.length === 0 && searchQuery) ? (
+          {movies.length > 0 && (
+            <Pagination
+              current={currentPage}
+              total={totalResults}
+              onChange={handlePageChange}
+              pageSize={20}
+              showSizeChanger={false}
+            />
+          )}
+          {(!loading && movies.length === 0) && (
             <Alert
-              message="Результатов нет"
+              message="No results found"
               type="info"
               showIcon
             />
-          ) : null}
+          )}
         </>
       )}
     </>
   );
 };
+
 export { Search };

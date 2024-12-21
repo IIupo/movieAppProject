@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Navigation.module.css';
+
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();

@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from 'react';
-import { useDebounce } from 'use-debounce';
+import React, { ChangeEvent, useCallback } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import styles from './SearchBar.module.css'
 
 interface SearchBarProps {
@@ -7,20 +7,18 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [debouncedCallback] = useDebounce(
-    handleSearch,
+  const debouncedSearch = useDebouncedCallback(
+    (value: string) => {
+      if (value) {
+        onSearch(value);
+      }
+    },
     500
   );
 
-  function handleSearch(value: string) {
-    if (value) {
-      onSearch(value);
-    }
-  }
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    debouncedCallback(e.target.value);
-  }
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(e.target.value);
+  }, [debouncedSearch]);
 
   return (
     <input

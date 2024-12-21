@@ -1,37 +1,70 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Movie } from '../types/movie';
-import { searchMovies } from '../services/api';
+import { searchMovies, getRatedMovies } from '../services/api';
+import { useSession } from '../context/SessionContext';
 
- const useMovieSearch = () => {
+interface SearchResults {
+  results: Movie[];
+  total_results: number;
+}
+
+const useMovieSearch = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const { session } = useSession();
 
-  const handleSearch = async (query: string, page: number = 1) => {
-    if (!query) {
+  const fetchRatedMovies = useCallback(async (): Promise<Movie[]> => {
+    if (session?.guest_session_id) {
+      try {
+        const ratedMovies = await getRatedMovies(session.guest_session_id);
+        return ratedMovies.results;
+      } catch (error) {
+        console.error('Error fetching rated movies:', error);
+        return [];
+      }
+    }
+    return [];
+  }, [session]);
+
+  const handleSearch = useCallback(async (query?: string, page: number = 1) => {
+    const searchTerm = query !== undefined ? query : searchQuery;
+    if (!searchTerm) {
       setMovies([]);
       setTotalResults(0);
       return;
     }
-
+  
     try {
       setLoading(true);
-      const data = await searchMovies(query, page);
-      setMovies(data.results);
-      setTotalResults(data.total_results);
+      const [searchResults, ratedMovies] = await Promise.all([
+        searchMovies(searchTerm, page) as Promise<SearchResults>,
+        fetchRatedMovies()
+      ]);
+  
+      const mergedResults = searchResults.results.map((movie: Movie) => {
+        const ratedMovie = ratedMovies.find((rm: Movie) => rm.id === movie.id);
+        return ratedMovie ? { ...movie, rating: ratedMovie.rating } : movie;
+      });
+  
+      setMovies(mergedResults);
+      setTotalResults(searchResults.total_results);
       setCurrentPage(page);
     } catch (err) {
-      console.error('Failed to fetch movies.', err);
+      console.error('Failed to fetch movies:', err);
       setMovies([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery, fetchRatedMovies]);
 
-  const handlePageChange = (query: string, page: number) => {
-    handleSearch(query, page);
-  };
+  useEffect(() => {
+    if (searchQuery) {
+      handleSearch();
+    }
+  }, [searchQuery, handleSearch]);
 
   return {
     movies,
@@ -39,7 +72,8 @@ import { searchMovies } from '../services/api';
     totalResults,
     currentPage,
     handleSearch,
-    handlePageChange,
+    setSearchQuery,
   };
 };
-export {useMovieSearch}
+
+export { useMovieSearch };

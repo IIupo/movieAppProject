@@ -3,7 +3,7 @@ import { Movie } from '../types/movie';
 import { getRatedMovies } from '../services/api';
 import { useSession } from '../context/SessionContext';
 
- const useRatedMovies = () => {
+const useRatedMovies = () => {
   const { session } = useSession();
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ import { useSession } from '../context/SessionContext';
       setTotalResults(data.total_results);
       setCurrentPage(page);
     } catch (err) {
-      console.error('Failed to load rated movies',err);
+      console.error('Failed to load rated movies', err);
       setMovies([]);
     } finally {
       setLoading(false);

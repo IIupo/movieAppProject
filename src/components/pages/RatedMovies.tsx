@@ -5,6 +5,7 @@ import { useRatedMovies } from '../fetches/useRatedMovies';
 import { useSession } from '../context/SessionContext';
 import { useRateMovie } from '../fetches/useRateMovie';
 import { IsOnline } from '../isOnline';
+
 const RatedMovies: React.FC = () => {
   const { session } = useSession();
   const { handleRate } = useRateMovie();
@@ -17,39 +18,26 @@ const RatedMovies: React.FC = () => {
 
   if (!session) {
     return (
-      <Alert
-        message="Нет активной сессии"
-        type="info"
-        showIcon
-      />
+      <Alert message="Нет активной сессии" type="info" showIcon />
     );
   }
 
   return (
     <div>
-        <IsOnline />
-        {loading ? (
+      <IsOnline />
+      {loading ? (
         <Spin />
       ) : (
         <>
-          <MovieGrid
-            movies={ratedMovies}
-            onRate={session && handleRate}
-          />
-
+          <MovieGrid movies={ratedMovies} onRate={session && handleRate} />
           <Pagination
             onChange={handlePageChange}
             total={totalResults}
             pageSize={20}
             showSizeChanger={false}
           />
-
           {(!loading && ratedMovies.length === 0) ? (
-            <Alert
-              message="Нет оцененных фильмов"
-              type="info"
-              showIcon
-            />
+            <Alert message="Нет оцененных фильмов" type="info" showIcon />
           ) : null}
         </>
       )}

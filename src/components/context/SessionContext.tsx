@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { createGuestSession } from '../services/api';
 import { GuestSession } from '../types/movie';
 
@@ -14,7 +14,11 @@ const SessionContext = createContext<SessionContextType>({
 
 const useSession = () => useContext(SessionContext);
 
-const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface SessionProviderProps {
+  children: ReactNode;
+}
+
+const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
   const [session, setSession] = useState<GuestSession | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
