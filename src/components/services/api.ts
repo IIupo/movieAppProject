@@ -10,7 +10,7 @@ export const createGuestSession = async () => {
     `${BASE_URL}/authentication/guest_session/new`,
     API_OPTIONS
   );
-  if (!response.ok) throw new Error('Failed to create guest session');
+  if (!response.ok) throw new Error('Не получилось создать гостевую сессию');
   return response.json();
 };
 
@@ -19,7 +19,7 @@ export const searchMovies = async (query: string, page: number) => {
     `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=${page}`,
     API_OPTIONS
   );
-  if (!response.ok) throw new Error('Failed to fetch movies');
+  if (!response.ok) throw new Error('Не получилось загрузить фильмы');
   return response.json();
 };
 
@@ -28,7 +28,7 @@ export const fetchGenres = async () => {
     `${BASE_URL}/genre/movie/list?language=en`,
     API_OPTIONS
   );
-  if (!response.ok) throw new Error('Failed to fetch genres');
+  if (!response.ok) throw new Error('Не получилось загрузить жанры');
   return response.json();
 };
 
@@ -47,7 +47,7 @@ export const rateMovie = async (movieId: number, rating: number, guestSessionId:
     `${BASE_URL}/movie/${movieId}/rating?guest_session_id=${guestSessionId}`,
     options
   );
-  if (!response.ok) throw new Error('Failed to rate movie');
+  if (!response.ok) throw new Error('Не получилось оценить фильм');
   return response.json();
 };
 
@@ -56,6 +56,6 @@ export const getRatedMovies = async (guestSessionId: string, page: number = 1) =
     `${BASE_URL}/guest_session/${guestSessionId}/rated/movies?language=en-US&page=${page}&sort_by=created_at.asc`,
     API_OPTIONS
   );
-  if (!response.ok) throw new Error('Failed to fetch rated movies');
+  if (!response.ok) throw new Error('Не получилось загрузить оцененные фильмы');
   return response.json();
 };

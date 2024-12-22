@@ -46,7 +46,7 @@ const Search: React.FC = () => {
             movies={movies}
             onRate={onRateMovie}
           />
-          {movies.length > 0 && (
+          {movies.length > 0 ? (
             <Pagination
               current={currentPage}
               total={totalResults}
@@ -54,14 +54,14 @@ const Search: React.FC = () => {
               pageSize={20}
               showSizeChanger={false}
             />
-          )}
-          {(!loading && movies.length === 0) && (
+          ): null}
+          {(!loading && movies.length === 0) ? (
             <Alert
-              message="No results found"
+              message="Результатов нет"
               type="info"
               showIcon
             />
-          )}
+          ): null}
         </>
       )}
     </>
