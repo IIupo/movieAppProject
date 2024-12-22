@@ -71,6 +71,7 @@ const useMovieSearch = () => {
     loading,
     totalResults,
     currentPage,
+    searchQuery,
     handleSearch,
     setSearchQuery,
   };

@@ -16,6 +16,7 @@ const Search: React.FC = () => {
     totalResults,
     currentPage,
     handleSearch,
+    searchQuery,
     setSearchQuery,
   } = useMovieSearch();
 
@@ -55,7 +56,7 @@ const Search: React.FC = () => {
               showSizeChanger={false}
             />
           ): null}
-          {(!loading && movies.length === 0) ? (
+          {(!loading && movies.length === 0 && searchQuery) ? (
             <Alert
               message="Результатов нет"
               type="info"
