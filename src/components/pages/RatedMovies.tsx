@@ -30,12 +30,12 @@ const RatedMovies: React.FC = () => {
       ) : (
         <>
           <MovieGrid movies={ratedMovies} onRate={session && handleRate} />
-          <Pagination
+          {(ratedMovies.length > 20) ? (<Pagination
             onChange={handlePageChange}
             total={totalResults}
             pageSize={20}
             showSizeChanger={false}
-          />
+          />) : null}
           {(!loading && ratedMovies.length === 0) ? (
             <Alert message="Нет оцененных фильмов" type="info" showIcon />
           ) : null}
