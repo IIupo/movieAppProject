@@ -17,4 +17,4 @@ const useRateMovie = () => {
 
   return { handleRate };
 };
-export {useRateMovie}
+export { useRateMovie }

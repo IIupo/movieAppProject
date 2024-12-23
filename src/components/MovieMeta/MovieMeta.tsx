@@ -34,4 +34,4 @@ const MovieMeta: React.FC<MovieMetaProps> = ({ movie, genres, onRate }) => (
     </div>
   </div>
 );
-export {MovieMeta}
+export { MovieMeta }

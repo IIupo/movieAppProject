@@ -45,4 +45,4 @@ const useRatedMovies = () => {
     handlePageChange,
   };
 };
-export {useRatedMovies}
+export { useRatedMovies }
