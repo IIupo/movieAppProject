@@ -4,9 +4,9 @@ import { MovieGrid } from '../MovieGrid/MovieGrid';
 import { useRatedMovies } from '../fetches/useRatedMovies';
 import { useSession } from '../context/SessionContext';
 import { useRateMovie } from '../fetches/useRateMovie';
-import { IsOnline } from '../isOnline';
+import { OfflineAllert } from '../OfflineAlert';
 
-const RatedMovies: React.FC = () => {
+export const RatedMovies: React.FC = () => {
   const { session } = useSession();
   const { handleRate } = useRateMovie();
   const {
@@ -24,10 +24,16 @@ const RatedMovies: React.FC = () => {
 
   return (
     <div>
-      <IsOnline />
-      {loading ? (
-        <Spin />
-      ) : (
+      <OfflineAllert />
+      {loading ? 
+        <Spin 
+        size="large"
+        style={{
+          position: 'fixed',
+          top: '50vh',
+          width: '50vw'
+        }}
+        /> : null}
         <>
           <MovieGrid movies={ratedMovies} onRate={session && handleRate} />
           {(ratedMovies.length > 20) ? (<Pagination
@@ -40,8 +46,6 @@ const RatedMovies: React.FC = () => {
             <Alert message="Нет оцененных фильмов" type="info" showIcon />
           ) : null}
         </>
-      )}
     </div>
   );
 };
-export { RatedMovies }

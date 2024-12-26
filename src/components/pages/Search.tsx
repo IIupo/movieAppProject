@@ -5,9 +5,9 @@ import { MovieGrid }from '../MovieGrid/MovieGrid';
 import { useMovieSearch } from '../fetches/useMovieSearch';
 import { useSession } from '../context/SessionContext';
 import { useRateMovie } from '../fetches/useRateMovie';
-import { IsOnline } from '../isOnline';
+import { OfflineAllert } from '../OfflineAlert';
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   const { session } = useSession();
   const { handleRate } = useRateMovie();
   const {
@@ -38,10 +38,17 @@ const Search: React.FC = () => {
   return (
     <>
       <SearchBar onSearch={onSearch} />
-      <IsOnline />
-      {loading ? (
-        <Spin />
-      ) : (
+      <OfflineAllert />
+      {loading ? 
+        <Spin 
+        size="large"
+        style={{
+          position: 'fixed',
+          top: '50vh',
+          width: '50vw'
+        }}
+        />
+       : null}
         <>
           <MovieGrid
             movies={movies}
@@ -64,9 +71,7 @@ const Search: React.FC = () => {
             />
           ): null}
         </>
-      )}
     </>
   );
 };
 
-export { Search };

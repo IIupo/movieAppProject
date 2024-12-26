@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Movie } from '../types/movie';
-import { getRatedMovies } from '../services/api';
+import { Movie } from '../../types/movie';
+import { getRatedMovies } from '../../services/api';
 import { useSession } from '../context/SessionContext';
 
-const useRatedMovies = () => {
+export const useRatedMovies = () => {
   const { session } = useSession();
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
@@ -45,4 +45,3 @@ const useRatedMovies = () => {
     handlePageChange,
   };
 };
-export { useRatedMovies }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGenres } from '../context/GenreContext';
-import { Movie } from '../types/movie';
+import { Movie } from '../../types/movie';
 import { RatingBadge } from '../RatingBadge/RatingBadge';
 import { MovieMeta } from '../MovieMeta/MovieMeta';
 import styles from './MovieCard.module.css';
@@ -10,7 +10,7 @@ interface MovieCardProps {
   onRate: (movieId: number, rating: number) => void;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onRate }) => {
+export const MovieCard: React.FC<MovieCardProps> = ({ movie, onRate }) => {
   const { genres } = useGenres();
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -32,4 +32,3 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onRate }) => {
     </div>
   );
 };
-export { MovieCard };

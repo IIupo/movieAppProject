@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { rateMovie } from '../services/api';
+import { rateMovie } from '../../services/api';
 import { useSession } from '../context/SessionContext';
 
-const useRateMovie = () => {
+export const useRateMovie = () => {
   const { session } = useSession();
 
   const handleRate = useCallback(async (movieId: number, rating: number) => {
@@ -17,4 +17,3 @@ const useRateMovie = () => {
 
   return { handleRate };
 };
-export { useRateMovie }

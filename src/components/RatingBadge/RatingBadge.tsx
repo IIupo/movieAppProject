@@ -1,12 +1,12 @@
 import React from 'react';
-import { getRatingColor } from '../utils/ratings';
+import { getRatingColor } from '../../utils/ratings';
 import styles from './RatingBadge.module.css';
 
 interface RatingBadgeProps {
   rating: number;
 }
 
-const RatingBadge: React.FC<RatingBadgeProps> = ({ rating }) => (
+export const RatingBadge: React.FC<RatingBadgeProps> = ({ rating }) => (
   <div className={styles.rating_badge_placement}>
     <div
       className={styles.rating_badge}
@@ -16,4 +16,3 @@ const RatingBadge: React.FC<RatingBadgeProps> = ({ rating }) => (
     </div>
   </div>
 );
-export { RatingBadge };

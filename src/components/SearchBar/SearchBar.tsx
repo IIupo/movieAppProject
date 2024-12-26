@@ -6,7 +6,7 @@ interface SearchBarProps {
   onSearch: (query: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const debouncedSearch = useDebouncedCallback(
     (value: string) => {
       if (value) {
@@ -30,4 +30,3 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   );
 };
 
-export { SearchBar };

@@ -15,14 +15,3 @@ export interface MovieResponse {
   page: number;
   total_results: number;
 }
-
-export interface Genre {
-  id: number;
-  name: string;
-}
-
-export interface GuestSession {
-  success: boolean;
-  guest_session_id: string;
-  expires_at: string;
-}

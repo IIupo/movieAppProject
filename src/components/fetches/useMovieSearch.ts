@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Movie } from '../types/movie';
-import { searchMovies, getRatedMovies } from '../services/api';
+import { Movie } from '../../types/movie';
+import { searchMovies, getRatedMovies } from '../../services/api';
 import { useSession } from '../context/SessionContext';
 
 interface SearchResults {
@@ -8,7 +8,7 @@ interface SearchResults {
   total_results: number;
 }
 
-const useMovieSearch = () => {
+export const useMovieSearch = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,5 +76,3 @@ const useMovieSearch = () => {
     setSearchQuery,
   };
 };
-
-export { useMovieSearch };

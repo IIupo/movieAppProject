@@ -1,6 +1,6 @@
 import React from 'react';
 import { Rate } from 'antd';
-import { Movie } from '../types/movie';
+import { Movie } from '../../types/movie';
 import { format } from 'date-fns';
 import styles from './MovieMeta.module.css';
 import './rated.css';
@@ -16,7 +16,7 @@ function miniOverview(text: string, length = 60): string {
   return text.slice(0, text.indexOf(' ', length)) + '...';
 }
 
-const MovieMeta: React.FC<MovieMetaProps> = ({ movie, genres, onRate }) => (
+export const MovieMeta: React.FC<MovieMetaProps> = ({ movie, genres, onRate }) => (
   <div className={styles.movie_meta_container}>
     <p>{movie.title}</p>
     <div className={styles.release_date}>
@@ -34,4 +34,3 @@ const MovieMeta: React.FC<MovieMetaProps> = ({ movie, genres, onRate }) => (
     </div>
   </div>
 );
-export { MovieMeta }

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Genre } from '../types/movie';
-import { fetchGenres } from '../services/api';
+import { Genre } from '../../types/genre';
+import { fetchGenres } from '../../services/api';
 
 interface GenreContextType {
   genres: Genre[];
@@ -12,13 +12,13 @@ const GenreContext = createContext<GenreContextType>({
   isLoading: false,
 });
 
-const useGenres = () => useContext(GenreContext);
+export const useGenres = () => useContext(GenreContext);
 
 interface GenreProviderProps {
   children: ReactNode;
 }
 
-const GenreProvider: React.FC<GenreProviderProps> = ({ children }) => {
+export const GenreProvider: React.FC<GenreProviderProps> = ({ children }) => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,4 +44,3 @@ const GenreProvider: React.FC<GenreProviderProps> = ({ children }) => {
     </GenreContext.Provider>
   );
 };
-export {GenreProvider, useGenres}
